@@ -13,7 +13,14 @@ function Update () {
 function OnCollisionEnter(collision: Collision) {
 	Debug.Log(dropHeight + ", " + transform.position.y);
 	if (dropHeight - transform.position.y > 1) {
-		Instantiate(brokenMug, transform.position, transform.rotation);
-    	Destroy(gameObject);
+    	BreakMug(gameObject);
+    	if (collision.gameObject.tag == "mug") {
+    		BreakMug(collision.gameObject);
+    	}
     }
+}
+
+function BreakMug(mug: GameObject) {
+	Instantiate(brokenMug, mug.transform.position, mug.transform.rotation);
+    Destroy(mug);
 }
