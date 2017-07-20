@@ -12,7 +12,7 @@ function Update () {
 
 function OnCollisionEnter(collision: Collision) {
 	Debug.Log(dropHeight + ", " + transform.position.y);
-	if (dropHeight - transform.position.y > 2) {
+	if (dropHeight - transform.position.y > 1.5) {
     	BreakMug(gameObject);
     	if (collision.gameObject.tag == "mug") {
     		BreakMug(collision.gameObject);
