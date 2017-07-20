@@ -2,20 +2,31 @@
 
 public var brokenMug : GameObject;
 private var dropHeight : float;
+private var numCollisions: int;
+private var collided : GameObject;
 
 function Start () {
 	dropHeight = transform.position.y; //initial height for now
 }
 
-function Update () {
+function LateUpdate () {
+	if (numCollisions > 0) {
+		BreakMug(gameObject);
+		if (collided) {
+			BreakMug(collided);
+		}
+	}
 }
 
 function OnCollisionEnter(collision: Collision) {
+    // we need to do only one collision per mug
+    // how about we break mug after we process all the collisions
+
 	Debug.Log(dropHeight + ", " + transform.position.y);
 	if (dropHeight - transform.position.y > 1.5) {
-    	BreakMug(gameObject);
+    	numCollisions++;
     	if (collision.gameObject.tag == "mug") {
-    		BreakMug(collision.gameObject);
+    		collided = collision.gameObject;
     	}
     }
 }
